@@ -6,7 +6,7 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 09:44:07 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/10 11:22:46 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/10 15:42:38 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ char *get_next_line(int fd)
 	}
 	else if ((string[1] = ft_strchr(buffer + start, 10)) == NULL) // \n not found
 		string[0] = ft_strjoin(string[0], string[1]);
+	
 
 	return(string[0]);
 }
