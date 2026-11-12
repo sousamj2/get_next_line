@@ -6,13 +6,15 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 10:16:55 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/10 10:52:43 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/11 22:17:54 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-
+/* size_t	ft_strlen(const char *s); */
+/* char	*ft_strjoin(char const *s1, char const *s2); */
+/* char	*ft_strchr(const char *s, int c); */
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*retval;
@@ -21,7 +23,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (!s1 || !s2)
 		return (NULL);
 	size_alloc = ft_strlen(s1) + ft_strlen(s2);
-	retval = malloc((1 + size_alloc)* sizeof(char));
+	retval = malloc((1 + size_alloc) * sizeof(char));
 	if (!retval)
 		return (NULL);
 	while (*s1 != '\0')

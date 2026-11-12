@@ -6,16 +6,19 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 09:43:47 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/10 10:53:07 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/12 01:44:53 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE
-#define GET_NEXT_LINE
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
 # include <stdlib.h>
 # include <unistd.h>
-# define BUFFER_SIZE 42
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
 
 /**
  * @brief Allocates and returns a new string, which is the result of the
@@ -43,5 +46,15 @@ size_t			ft_strlen(const char *s);
  * @return Pointer to the matched character or NULL if not found.
  */
 char			*ft_strchr(const char *s, int c);
+
+char			*get_next_line(int fd);
+
+typedef struct s_gnl
+{
+	int		fd;
+	char	buffer[BUFFER_SIZE + 1];
+	char	*retval;
+	s_gnl	*next;
+}			t_gnl;
 
 #endif
