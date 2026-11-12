@@ -6,107 +6,164 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 09:44:07 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/12 01:44:22 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/12 20:56:21 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stddef.h>
 
 /* char *get_next_line(int fd); */
 /* ssize_t read(int fd, void *buf, size_t nbyte); */
 
-THEY ARE BOTH INCORRECT!
 t_gnl *ft_get_gnl(t_gnl **gnl, int fd);
 void ft_del_gnl(t_gnl **gnl, int fd);
 
 t_gnl *ft_get_gnl(t_gnl **gnl, int fd)
 {
- 	t_gnl *this;
-	
-	while (gnl != NULL && *gnl != NULL && (*gnl)->next != NULL)
+	t_gnl *this;
+	t_gnl *prev;
+
+	this = *gnl;
+	while (this != NULL)
 	{
-		if ((*gnl)->fd == fd)
-			return (*gnl);
-		*gnl = (*gnl)->next;
+		if (this->fd == fd)
+			return (this);
+		prev = this;
+		this = this->next;
 	}
 	this = malloc(sizeof(t_gnl));
-	if (gnl == NULL)
+	if (this == NULL)
 		return (NULL);
 	this->fd = fd;
 	this->next = NULL;
-	(*gnl)->next = this;
+	this->retval = NULL;
+	this->ret_size = 0;
+	this->bytes_read = 0;
+	if (*gnl == NULL)
+		*gnl = this;
+	else
+		prev->next = this;
 	return (this);
 }
 
 void ft_del_gnl(t_gnl **gnl, int fd)
 {
- 	t_gnl *this;
-	
-	if (gnl == NULL || *gnl == NULL)
+	t_gnl *this;
+	t_gnl *tmp;
+
+	this = *gnl;
+	if (this == NULL)
 		return;
-	if (gnl[0]->fd == fd)
+	if (this->fd == fd)
 	{
-		this = gnl[0];
-		gnl[0] = gnl[0]->next;
+		*gnl = (*gnl)->next;
 		free(this);
+		return ;
 	}
-	while ((*gnl)->next != NULL && (*gnl)->next->fd != fd)
-		(*gnl) = (*gnl)->next;
-	this = gnl[0]->next;
-	gnl[0] = gnl[0]->next->next;
-	free(this);
+	while (this->next != NULL)
+	{
+		if (this->next->fd != fd)
+		{
+			this = this->next;
+			continue ;
+		}
+		tmp = this->next;
+		this->next = this->next->next;
+		free(tmp);
+		return ;
+	}
 }
 
 
 char	*get_next_line(int fd)
 {
-	static t_gnl **gnl;
-	t_gnl *this;
-	this = ft_get_gnl(gnl, fd);
-
-
+	static t_gnl	*gnl_lst = NULL;
+	t_gnl			*this;
+	char			*aux[2];
+	ssize_t			bytes_read;
+	size_t			line_len;
 	
-	
-	string[0] = ft_strjoin("", "");
+	this = ft_get_gnl(&gnl_lst, fd);
+	aux[0] = ft_strjoin("", "");
+	aux[1] = NULL;
 	while (1)
 	{
-		if (start == 0)
-			bytes_read = read(fd, buffer, BUFFER_SIZE);
-		string[1] = ft_strchr(buffer + start, 10);
-		if (string[1] == NULL)
-			buffer[bytes_read] = '\0';
-		else
-			*(++string[1]) = '\0';
-		start = ft_strlen(buffer);
-		string[2] = ft_strjoin(string[0], buffer);
-		free(string[0]);
-		if (string[2] == NULL)
-			return (NULL);
-		string[0] = string[2];
-		if (string[1] != buffer + bytes_read + 1 )
-		{
-			buffer += bytes_read + 1;
+		if (aux[1] == NULL && (bytes_read = read(fd, this->buffer, BUFFER_SIZE)) < 0)
 			break ;
+		aux[1] = ft_strchr(this->buffer, '\n');
+		this->buffer[bytes_read] = '\0';
+		this->buffer[bytes_read+1] = '\0';
+		if (aux[1] != NULL)
+		{
+			line_len = aux[1] - this->buffer + 1;
+			ft_memmove(aux[1] + 2, aux[1] + 1, bytes_read - line_len);
+			*(aux[1] + 1) = '\0';
 		}
-		start = 0;
+		this->retval = ft_strjoin(aux[0], this->buffer);
+		free(aux[0]);
+		aux[0] = this->retval;
+		if (aux[1] != NULL || !bytes_read)
+		{
+			this->retval = NULL;
+			bytes_read = ft_strlcpy(this->buffer, aux[1], line_len);
+			return (aux[0]);
+		}
 	}
-	return (string[0]);
+	ft_del_gnl(&gnl_lst, fd);
+	return (NULL);
 }
 
-#include <fcntl.h>
-#include <stdio.h>
-
-int main(void)
+size_t	ft_size_retval(void const *buffer, void const *chr)
 {
-	int fd = open("text.txt", O_RDONLY);
+	size_t retval;
 
-	char *str;
-
-	while ((str = get_next_line(fd)) != NULL)
+	retval = 0;
+	while (buffer < chr)
 	{
-		printf("New line: %s", str);
-		free(str);
+		buffer++;
+		retval++;
 	}
-	
-    return (0);
+	return (retval);
 }
+
+char	*get_next_line2(int fd)
+{
+	static t_gnl	*gnl_lst = NULL;
+	t_gnl			*this;
+	char			*aux[2];
+	ssize_t			bytes_read;
+	size_t			tmp;
+	this = ft_get_gnl(&gnl_lst, fd);
+	if (this == NULL)
+		return (NULL);
+	/* string[0] = ft_strjoin("", ""); */
+	/* string[1] = NULL; */
+	while (1)
+	{
+		if (this->bytes_read == 0)
+			this->bytes_read = read(fd, this->buffer, BUFFER_SIZE);
+		if (this->bytes_read < 0) break ;
+		aux[0] = ft_memchr(this->buffer, '\n', bytes_read);
+		if (aux[0] != NULL)
+		{
+			tmp = ft_size_retval(this->buffer, aux[0]);
+			this->retval = ft_memjoin(this->retval, this->buffer,
+				this->ret_size, tmp);
+			this->ret_size += tmp;
+			this->retval = ft_memjoin(this->retval, "\n\0", this->ret_size, 2);
+			free(aux[0]);
+		}
+		free(string[0]);
+		string[0] = this->retval;
+		if (string[1] != NULL || !bytes_read)
+		{
+			this->retval = NULL;
+			return (string[0]);
+		}
+		bytes_read = ft_strlcpy(this->buffer, string[1], ft_strlen(string[1])) + 1;
+	}
+	ft_del_gnl(&gnl_lst, fd);
+	return (NULL);
+}
+

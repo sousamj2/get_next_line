@@ -6,7 +6,7 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 10:16:55 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/11 22:17:54 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/12 19:30:06 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,112 @@ size_t	ft_strlen(const char *s)
 		s++;
 	}
 	return (len);
+}
+
+
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
+{
+	size_t	index;
+
+	if (dst == NULL || src == NULL)
+		return (0);
+	if (size == 0)
+		return (ft_strlen(src));
+	index = 0;
+	if (src[index] == '\0' || size == 1)
+		dst[index] = '\0';
+	while (index < size - 1 && src[index] != '\0')
+	{
+		dst[index] = src[index];
+		dst[index + 1] = '\0';
+		index++;
+	}
+	return (ft_strlen(src));
+}
+
+
+void	*ft_memchr(const void *s, int c, size_t n)
+{
+	unsigned char	*ibyte;
+	size_t			index;
+
+	ibyte = (unsigned char *) s;
+	index = 0;
+	while (index < n)
+	{
+		if (*ibyte == (unsigned char) c)
+			return (ibyte);
+		ibyte++;
+		index++;
+	}
+	return (NULL);
+}
+
+char	*ft_memjoin(char const *s1, char const *s2, size_t ss1, size_t ss2)
+{
+	char	*retval;
+	size_t	iter;
+
+	iter = 0;
+	if (s1 == NULL || s2 == NULL)
+		return (NULL);
+	retval = malloc((ss1 + ss2) * sizeof(char));
+	if (!retval)
+		return (NULL);
+	while (iter < ss1)
+	{
+		retval[iter] = s1[iter];
+		iter++;
+	}
+	while (iter < ss1+ss2)
+	{
+		retval[iter] = s2[iter-ss1];
+		iter++;
+	}
+	return (retval);
+}
+
+
+void	*ft_memcpy(void *dest, const void *src, size_t n)
+{
+	unsigned char		*ptr_dest;
+	const unsigned char	*ptr_src;
+	size_t				index;
+
+	ptr_dest = (unsigned char *) dest;
+	ptr_src = (const unsigned char *) src;
+	index = 0;
+	while (index < n)
+	{
+		*ptr_dest = *ptr_src;
+		ptr_src++;
+		ptr_dest++;
+		index++;
+	}
+	return (dest);
+}
+
+char	*ft_memmove(char *dest, const char *src, size_t n)
+{
+	size_t	iter;
+
+	if (dest > src)
+	{
+		iter = n;
+		while (iter > 0)
+		{
+			iter--;
+			*(dest + iter) = *(src + iter);
+		}
+	}
+	else
+	{
+		iter = 0;
+		while (iter < n)
+		{
+			*(dest + iter) = *(src + iter);
+			iter++;
+		}
+	}
+	return (dest);
 }

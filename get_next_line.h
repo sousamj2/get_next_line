@@ -6,7 +6,7 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 09:43:47 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/12 01:44:53 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/12 19:29:40 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,41 +20,36 @@
 #  define BUFFER_SIZE 42
 # endif
 
-/**
- * @brief Allocates and returns a new string, which is the result of the
- * concatenation of 's1' and 's2'.
- *
- * @param s1 Prefix string.
- * @param s2 Suffix string.
- * @return The new concatenated string, or NULL if memory allocation fails.
- */
 char			*ft_strjoin(char const *s1, char const *s2);
-
-/**
- * @brief Calculates the length of the string s.
- *
- * @param s Null-terminated string to measure.
- * @return The number of characters preceding the terminating null character.
- */
 size_t			ft_strlen(const char *s);
 
-/**
- * @brief Locates the first occurrence of character c in the string s.
- *
- * @param s String to search.
- * @param c Character to locate (converted to char).
- * @return Pointer to the matched character or NULL if not found.
- */
-char			*ft_strchr(const char *s, int c);
 
-char			*get_next_line(int fd);
+
+
+char			*ft_strchr(const char *s, int c);
+void			*ft_memchr(const void *s, int c, size_t n);
+
+size_t			ft_strlcpy(char *dst, const char *src, size_t size);
+void	*ft_memcpy(void *dest, const void *src, size_t n);
+
+char	*ft_memmove(char *dest, const char *src, size_t n);
+
+
 
 typedef struct s_gnl
 {
 	int		fd;
-	char	buffer[BUFFER_SIZE + 1];
+	char	buffer[BUFFER_SIZE+2];
 	char	*retval;
-	s_gnl	*next;
+	struct s_gnl	*next;
 }			t_gnl;
 
+
 #endif
+
+char			*ft_memjoin(char const *s1, char const *s2,
+					size_t ss1, size_t ss2);
+t_gnl *ft_get_gnl(t_gnl **gnl, int fd);
+void ft_del_gnl(t_gnl **gnl, int fd);
+size_t	ft_size_retval(void const *buffer, void const *chr);
+char	*get_next_line(int fd);
