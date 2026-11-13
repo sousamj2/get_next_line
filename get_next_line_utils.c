@@ -6,7 +6,7 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 10:16:55 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/13 13:40:46 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/13 18:53:14 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,26 +75,30 @@ size_t	ft_strlen(const char *s)
 	return (len);
 }
 
-void ft_split2(const unsigned char *s, const unsigned char c, const unsigned char **submem2, size_t *sizestr2 );
+unsigned char	*ft_split2(const unsigned char *s, const unsigned char c, unsigned char **submem2, size_t *sizestr2);
 
-void ft_split2(const unsigned char *s, const unsigned char c, const unsigned char **submem2, size_t *sizestr3 )
+unsigned char	*ft_split2(const unsigned char *s, const unsigned char c, unsigned char **submem2, size_t *sizestr3)
 {
 	size_t index;
 
 	if (s == NULL)
-		return ;
+		return (NULL);
 	index = 0;
-	submem2[0] = s;
+	submem2[0] = (unsigned char *) s;
 	while (index < sizestr3[0])
 	{
 		index++;
-		s++;
-		if (*s == c)
+		if (*s == c || index + 1 < sizestr3[0])
 			break ;
+		s++;
 	}
 	sizestr3[1] = index;
 	sizestr3[2] = sizestr3[0] - index;
-	submem2[1] = s;
+	if (sizestr3[2])
+		submem2[1] = (unsigned char *) s;
+	else
+		submem2[1] = NULL;
+	return (submem2[0]);
 }
 
 
@@ -136,15 +140,20 @@ void	*ft_memchr(const void *s, int c, size_t n)
 	return (NULL);
 }
 
-char	*ft_memjoin(char const *s1, char const *s2, size_t ss1, size_t ss2)
+unsigned char	*ft_memjoin(unsigned char *s1, unsigned char *s2, size_t ss1, size_t ss2, int opt);
+
+unsigned char	*ft_memjoin(unsigned char *s1, unsigned char *s2, size_t ss1, size_t ss2, int opt)
 {
-	char	*retval;
+	unsigned char	*retval;
 	size_t	iter;
 
 	iter = 0;
 	if (s1 == NULL || s2 == NULL)
 		return (NULL);
-	retval = malloc((ss1 + ss2) * sizeof(char));
+	if (opt == 0)
+		retval = malloc((ss1 + ss2) * sizeof(unsigned char));
+	else
+		retval = s2;
 	if (!retval)
 		return (NULL);
 	while (iter < ss1)
@@ -152,7 +161,8 @@ char	*ft_memjoin(char const *s1, char const *s2, size_t ss1, size_t ss2)
 		retval[iter] = s1[iter];
 		iter++;
 	}
-	while (iter < ss1+ss2)
+	free(s1);
+	while (iter < ss1+ss2 && opt == 0)
 	{
 		retval[iter] = s2[iter-ss1];
 		iter++;

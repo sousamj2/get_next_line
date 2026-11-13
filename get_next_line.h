@@ -6,7 +6,7 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 09:43:47 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/12 19:29:40 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/13 18:23:55 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,7 @@ typedef struct s_gnl
 
 
 #endif
-
-char			*ft_memjoin(char const *s1, char const *s2,
-					size_t ss1, size_t ss2);
+/* unsigned char	*ft_memjoin(unsigned char *s1, unsigned char *s2, size_t ss1, size_t ss2); */
 t_gnl *ft_get_gnl(t_gnl **gnl, int fd);
 void ft_del_gnl(t_gnl **gnl, int fd);
 size_t	ft_size_retval(void const *buffer, void const *chr);
