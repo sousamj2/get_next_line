@@ -6,7 +6,7 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 10:16:55 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/12 19:30:06 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/13 13:40:46 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,28 @@ size_t	ft_strlen(const char *s)
 		s++;
 	}
 	return (len);
+}
+
+void ft_split2(const unsigned char *s, const unsigned char c, const unsigned char **submem2, size_t *sizestr2 );
+
+void ft_split2(const unsigned char *s, const unsigned char c, const unsigned char **submem2, size_t *sizestr3 )
+{
+	size_t index;
+
+	if (s == NULL)
+		return ;
+	index = 0;
+	submem2[0] = s;
+	while (index < sizestr3[0])
+	{
+		index++;
+		s++;
+		if (*s == c)
+			break ;
+	}
+	sizestr3[1] = index;
+	sizestr3[2] = sizestr3[0] - index;
+	submem2[1] = s;
 }
 
 
