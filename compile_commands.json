@@ -1,1 +1,37 @@
-[]
+[
+  {
+    "file": "get_next_line_utils.c",
+    "arguments": [
+      "/usr/lib64/ccache/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I.",
+      "-g",
+      "-O0",
+      "-c",
+      "get_next_line_utils.c",
+      "-o",
+      "objs/get_next_line_utils.o"
+    ],
+    "directory": "/home/sargedas/work/Projects42/get_next_line",
+    "output": "objs/get_next_line_utils.o"
+  },
+  {
+    "file": "main.c",
+    "arguments": [
+      "/usr/lib64/ccache/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I.",
+      "-g",
+      "-O0",
+      "main.c",
+      "-o",
+      "run_gnl"
+    ],
+    "directory": "/home/sargedas/work/Projects42/get_next_line",
+    "output": "run_gnl"
+  }
+]

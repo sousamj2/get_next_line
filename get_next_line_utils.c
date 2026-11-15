@@ -6,154 +6,127 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 10:16:55 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/13 18:53:14 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/15 21:13:29 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-/* size_t	ft_strlen(const char *s); */
-/* char	*ft_strjoin(char const *s1, char const *s2); */
-/* char	*ft_strchr(const char *s, int c); */
-char	*ft_strjoin(char const *s1, char const *s2)
-{
-	char	*retval;
-	size_t	size_alloc;
+/* t_gnl *ft_get_gnl(t_gnl **gnl, int fd); */
+/* void ft_del_gnl(t_gnl **gnl, int fd); */
+/* unsigned char *ft_split2(const unsigned char *s, const unsigned char c, */
+/* 						 unsigned char **submem2, */
+/* 						 size_t *sizestr2); */
+/* unsigned char *ft_memjoin(unsigned char *s1, unsigned char *s2, */
+/* 						  size_t ss1, size_t ss2, int opt); */
 
-	if (!s1 || !s2)
-		return (NULL);
-	size_alloc = ft_strlen(s1) + ft_strlen(s2);
-	retval = malloc((1 + size_alloc) * sizeof(char));
-	if (!retval)
-		return (NULL);
-	while (*s1 != '\0')
-	{
-		*retval = *s1;
-		retval++;
-		s1++;
-	}
-	while (*s2 != '\0')
-	{
-		*retval = *s2;
-		retval++;
-		s2++;
-	}
-	*retval = '\0';
-	return (retval - size_alloc);
+t_gnl	new_gnl(t_gnl single, int fd)
+{
+	single.retval = NULL;
+	single.retsize = 0;
+	if (single.fd != -1)
+		return (single);
+	single.fd = fd;
+	single.next = NULL;
+	single.leftover = 0;
+	single.buff0 = 0;
+	return (single);
 }
 
-char	*ft_strchr(const char *s, int c)
+t_gnl	*ft_get_gnl(t_gnl **gnl, int fd)
 {
-	char	*ichar;
-	char	search;
+	t_gnl	*elem;
+	t_gnl	*prev;
 
-	if (s == NULL)
-		return (NULL);
-	ichar = (char *) s;
-	search = (char) c;
-	if (search == '\0')
-		return (ichar + ft_strlen(s));
-	while (*ichar != '\0')
+	elem = *gnl;
+	while (elem != NULL)
 	{
-		if (*ichar == search)
-			return (ichar);
-		ichar++;
+		if (elem->fd == fd)
+			return (elem);
+		prev = elem;
+		elem = elem->next;
 	}
-	return (NULL);
+	elem = malloc(sizeof(t_gnl));
+	if (elem == NULL)
+		return (NULL);
+	elem->fd = fd;
+	elem->next = NULL;
+	elem->retval = NULL;
+	elem->leftover = 0;
+	elem->buff0 = 0;
+	elem->retsize = 0;
+	if (*gnl == NULL)
+		*gnl = elem;
+	else
+		prev->next = elem;
+	return (elem);
 }
 
-size_t	ft_strlen(const char *s)
+void	ft_del_gnl(t_gnl **gnl, int fd)
 {
-	size_t	len;
+	t_gnl	*elem;
+	t_gnl	*tmp;
 
-	len = 0;
-	while (*s != '\0')
+	elem = *gnl;
+	if (elem == NULL)
+		return ;
+	if (elem->fd == fd)
 	{
-		len++;
-		s++;
+		*gnl = (*gnl)->next;
+		free(elem);
+		return ;
 	}
-	return (len);
+	while (elem->next != NULL)
+	{
+		if (elem->next->fd != fd)
+		{
+			elem = elem->next;
+			continue ;
+		}
+		tmp = elem->next;
+		elem->next = elem->next->next;
+		free(tmp);
+		return ;
+	}
 }
 
-unsigned char	*ft_split2(const unsigned char *s, const unsigned char c, unsigned char **submem2, size_t *sizestr2);
-
-unsigned char	*ft_split2(const unsigned char *s, const unsigned char c, unsigned char **submem2, size_t *sizestr3)
+unsigned char	*ft_split2(t_gnl *elem, const unsigned char c)
 {
-	size_t index;
+	ssize_t			index;
+	unsigned char	*s;	
 
-	if (s == NULL)
-		return (NULL);
-	index = 0;
-	submem2[0] = (unsigned char *) s;
-	while (index < sizestr3[0])
+	elem->leftover = BUFFER_SIZE;
+	index = elem->buff0;
+	s = elem->buffer + elem->buff0;
+	while (index < BUFFER_SIZE)
 	{
 		index++;
-		if (*s == c || index + 1 < sizestr3[0])
+		if (*s == c || index == BUFFER_SIZE)
 			break ;
 		s++;
 	}
-	sizestr3[1] = index;
-	sizestr3[2] = sizestr3[0] - index;
-	if (sizestr3[2])
-		submem2[1] = (unsigned char *) s;
-	else
-		submem2[1] = NULL;
-	return (submem2[0]);
+	elem->retval = ft_memjoin(elem->retval, elem->buffer + elem->buff0,
+			elem->retsize, index - elem->buff0);
+	if (elem->retval == NULL)
+		return (NULL);
+	elem->leftover -= index;
+	elem->retsize += index - elem->buff0;
+	if (index == BUFFER_SIZE)
+		index = 0;		
+	elem->buff0 = index;
+	return (elem->retval);
 }
 
-
-size_t	ft_strlcpy(char *dst, const char *src, size_t size)
-{
-	size_t	index;
-
-	if (dst == NULL || src == NULL)
-		return (0);
-	if (size == 0)
-		return (ft_strlen(src));
-	index = 0;
-	if (src[index] == '\0' || size == 1)
-		dst[index] = '\0';
-	while (index < size - 1 && src[index] != '\0')
-	{
-		dst[index] = src[index];
-		dst[index + 1] = '\0';
-		index++;
-	}
-	return (ft_strlen(src));
-}
-
-
-void	*ft_memchr(const void *s, int c, size_t n)
-{
-	unsigned char	*ibyte;
-	size_t			index;
-
-	ibyte = (unsigned char *) s;
-	index = 0;
-	while (index < n)
-	{
-		if (*ibyte == (unsigned char) c)
-			return (ibyte);
-		ibyte++;
-		index++;
-	}
-	return (NULL);
-}
-
-unsigned char	*ft_memjoin(unsigned char *s1, unsigned char *s2, size_t ss1, size_t ss2, int opt);
-
-unsigned char	*ft_memjoin(unsigned char *s1, unsigned char *s2, size_t ss1, size_t ss2, int opt)
+unsigned char	*ft_memjoin(unsigned char *s1, unsigned char *s2,
+					ssize_t ss1, ssize_t ss2)
 {
 	unsigned char	*retval;
-	size_t	iter;
+	ssize_t			iter;
 
 	iter = 0;
-	if (s1 == NULL || s2 == NULL)
+	if (s2 == NULL)
 		return (NULL);
-	if (opt == 0)
-		retval = malloc((ss1 + ss2) * sizeof(unsigned char));
-	else
-		retval = s2;
+	retval = malloc((ss1 + ss2) * sizeof(unsigned char));
 	if (!retval)
 		return (NULL);
 	while (iter < ss1)
@@ -161,56 +134,12 @@ unsigned char	*ft_memjoin(unsigned char *s1, unsigned char *s2, size_t ss1, size
 		retval[iter] = s1[iter];
 		iter++;
 	}
-	free(s1);
-	while (iter < ss1+ss2 && opt == 0)
+	if (ss1)
+		free(s1);
+	while (iter < ss1 + ss2)
 	{
-		retval[iter] = s2[iter-ss1];
+		retval[iter] = s2[iter - ss1];
 		iter++;
 	}
 	return (retval);
-}
-
-
-void	*ft_memcpy(void *dest, const void *src, size_t n)
-{
-	unsigned char		*ptr_dest;
-	const unsigned char	*ptr_src;
-	size_t				index;
-
-	ptr_dest = (unsigned char *) dest;
-	ptr_src = (const unsigned char *) src;
-	index = 0;
-	while (index < n)
-	{
-		*ptr_dest = *ptr_src;
-		ptr_src++;
-		ptr_dest++;
-		index++;
-	}
-	return (dest);
-}
-
-char	*ft_memmove(char *dest, const char *src, size_t n)
-{
-	size_t	iter;
-
-	if (dest > src)
-	{
-		iter = n;
-		while (iter > 0)
-		{
-			iter--;
-			*(dest + iter) = *(src + iter);
-		}
-	}
-	else
-	{
-		iter = 0;
-		while (iter < n)
-		{
-			*(dest + iter) = *(src + iter);
-			iter++;
-		}
-	}
-	return (dest);
 }

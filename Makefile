@@ -6,7 +6,7 @@
 #    By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/11/05 11:20:42 by marisous          #+#    #+#              #
-#    Updated: 2026/11/12 09:40:32 by marisous         ###   ########.fr        #
+#    Updated: 2026/11/15 21:42:26 by marisous         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 VALG	= 1
@@ -15,9 +15,10 @@ DEBUG	= -g -O0
 QUIET	= 0
 RMRUN	= 1
 NMEM	= 0
+BUFF	= 42
 
 CC	= cc
-CFLAGS	= -Wall -Wextra -Werror -I.
+CFLAGS	= -Wall -Wextra -Werror -I. -D BUFFER_SIZE=$(BUFF)
 PREXEC	= ulimit -v 131072; timeout 5s
 
 OBJ_FOLDER	= objs
