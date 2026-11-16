@@ -6,7 +6,7 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/12 09:45:00 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/16 09:09:19 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/16 09:35:52 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 int main(void)
 {
-	int fd = open("text_5.txt", O_RDONLY);
+	int fd = open("text_0.txt", O_RDONLY);
 
 	char *str;
 	int index;
