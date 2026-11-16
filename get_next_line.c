@@ -6,13 +6,14 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 09:44:07 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/16 14:17:52 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/16 18:59:36 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stddef.h>
 #include <stdio.h>
+#include <string.h>
 
 char	*get_next_line(int fd)
 {
@@ -32,7 +33,16 @@ char	*get_next_line(int fd)
 		{
 			elem->bytes_read = read(fd, elem->buffer, BUFFER_SIZE);
 			if (elem->bytes_read < 0)
+			{
+				free(elem->retval);
+				elem->retsize = 0;
+				elem->buff0 = 0;
+				elem->bytes_read = 0;
+				elem->read0_1st = 0;
+				elem->leftover = 0;
+				bzero(elem->buffer, BUFFER_SIZE);
 				break ;
+			}
 		}
 		/* if (bytes_read == 0) */
 		/*	ft_del_gnl(&gnl_lst, fd); */
@@ -40,12 +50,13 @@ char	*get_next_line(int fd)
 		{
 			if (!elem->read0_1st && elem->retval != NULL)
 				elem->read0_1st = 1;
-			else if (elem->read0_1st)
+			else if (elem->retval == NULL)
 				break ;
 		}
 		if (elem->bytes_read != 0)
 			elem->retval = ft_split2(elem, '\n');
-		if (elem->leftover != 0 || elem->read0_1st)
+		if (elem->leftover != 0
+			|| elem->read0_1st || elem->retval[elem->retsize - 1] == '\n')
 		{
 			/* elem->read0_1st = 1; */
 			if (!BINNARY_FILE)
