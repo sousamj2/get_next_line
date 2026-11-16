@@ -6,11 +6,12 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 10:16:55 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/15 21:13:29 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/16 06:13:26 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
 /* t_gnl *ft_get_gnl(t_gnl **gnl, int fd); */
 /* void ft_del_gnl(t_gnl **gnl, int fd); */
@@ -30,6 +31,7 @@ t_gnl	new_gnl(t_gnl single, int fd)
 	single.next = NULL;
 	single.leftover = 0;
 	single.buff0 = 0;
+	single.read0_1st = 0;
 	return (single);
 }
 
@@ -93,7 +95,7 @@ void	ft_del_gnl(t_gnl **gnl, int fd)
 unsigned char	*ft_split2(t_gnl *elem, const unsigned char c)
 {
 	ssize_t			index;
-	unsigned char	*s;	
+	unsigned char	*s;
 
 	elem->leftover = BUFFER_SIZE;
 	index = elem->buff0;

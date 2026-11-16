@@ -6,7 +6,7 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 09:43:47 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/15 22:04:13 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/16 06:13:42 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_gnl
 	ssize_t			retsize;
 	ssize_t			leftover;
 	ssize_t			buff0;
+	int				read0_1st;
 	struct s_gnl	*next;
 }			t_gnl;
 
@@ -57,6 +58,7 @@ void			ft_del_gnl(t_gnl **gnl, int fd);
 unsigned char	*ft_memjoin(unsigned char *s1, unsigned char *s2,
 					ssize_t ss1, ssize_t ss2);
 unsigned char	*ft_split2(t_gnl *elem, const unsigned char c);
+/* unsigned char	*ft_split2(t_gnl *elem, const unsigned char c, ssize_t nread); */
 char			*get_next_line(int fd);
 t_gnl	new_gnl(t_gnl single, int fd);
 #endif
