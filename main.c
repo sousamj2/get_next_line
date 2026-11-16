@@ -6,7 +6,7 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/12 09:45:00 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/16 10:12:48 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/16 12:26:33 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int main(int argc, char *argv[])
 		free(str);
 		index++;
 	} while (str != NULL && index < 10);
-	
+
+	printf("(end)\n");
     return (0);
 }

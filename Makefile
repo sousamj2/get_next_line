@@ -6,7 +6,7 @@
 #    By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/11/05 11:20:42 by marisous          #+#    #+#              #
-#    Updated: 2026/11/15 21:42:26 by marisous         ###   ########.fr        #
+#    Updated: 2026/11/16 12:49:12 by marisous         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 VALG	= 1
@@ -34,19 +34,31 @@ else
 endif
 
 NAME	= run_gnl
+NAMEBON	= run_gnl_bonus
 
 HDRS	= get_next_line.h
 
 SRCS	= get_next_line.c get_next_line_utils.c
 
+HDRSBON	= get_next_line_bonusKO.h
+
+SRCSBON	= get_next_line_bonusKO.c get_next_line_utils_bonusKO.c
+
 OBJS	= $(addprefix $(OBJ_FOLDER)/, 	$(SRCS:.c=.o))
+
+OBJSBON	= $(addprefix $(OBJ_FOLDER)/, 	$(SRCSBON:.c=.o))
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(DEBUG) $^ main.c -o $@
 
-$(OBJ_FOLDER)/%.o: %.c $(HDRS)
+bonus: $(NAMEBON)
+
+$(NAMEBON): $(OBJSBON)
+	$(CC) $(CFLAGS) $(DEBUG) $^ main.c -o $@
+
+$(OBJ_FOLDER)/%.o: %.c $(HDRS) $(HDRSBON)
 	@mkdir -p objs/
 	$(CC) $(CFLAGS) $(DEBUG) -c $< -o $@
 
@@ -54,9 +66,15 @@ clean:
 	rm -rf $(OBJ_FOLDER)
 
 fclean: clean
-	rm -f $(NAME)
+	rm -f $(NAME) $(NAMEBON)
 
 re: fclean all
+
+run: re
+	$(PREXEC) $(EXEC) ./$(NAME) $(ARGS) | cat -e ; echo
+
+bon: re
+	$(PREXEC) $(EXEC) ./$(NAMEBON) $(ARGS) | cat -e ; echo
 
 .PHONY: all clean fclean re norm eclean
 
@@ -66,7 +84,7 @@ test:
 	@echo SRCS=$(SRCS)
 
 norm:
-	norminette $(SRCS) $(HDRS) | grep -v ": OK!"
+	norminette $(SRCS) $(HDRS) $(SRCSBON) $(HDRSBON) | grep -v ": OK!"
 	@echo Norminette: all OK!
 
 eclean:

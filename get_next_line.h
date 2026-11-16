@@ -6,7 +6,7 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 09:43:47 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/16 09:52:04 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/16 12:31:23 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ void			ft_del_gnl(t_gnl **gnl, int fd);
 unsigned char	*ft_memjoin(unsigned char *s1, unsigned char *s2,
 					ssize_t ss1, ssize_t ss2);
 unsigned char	*ft_split2(t_gnl *elem, const unsigned char c);
-/* unsigned char	*ft_split2(t_gnl *elem, const unsigned char c, ssize_t nread); */
+/*unsigned char *ft_split2(t_gnl *elem, const unsigned char c, ssize_t nread);*/
 char			*get_next_line(int fd);
-t_gnl	new_gnl(t_gnl single, int fd);
+t_gnl			new_gnl(t_gnl single, int fd);
 #endif
 /* /\* unsigned char	*ft_memjoin(unsigned char
 *s1, unsigned char *s2, size_t ss1, size_t ss2); *\/ */
