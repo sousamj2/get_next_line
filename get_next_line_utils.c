@@ -6,7 +6,7 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 10:16:55 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/16 06:13:26 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/16 09:54:06 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_gnl	new_gnl(t_gnl single, int fd)
 	single.next = NULL;
 	single.leftover = 0;
 	single.buff0 = 0;
+	single.bytes_read = 0;
 	single.read0_1st = 0;
 	return (single);
 }
@@ -97,13 +98,13 @@ unsigned char	*ft_split2(t_gnl *elem, const unsigned char c)
 	ssize_t			index;
 	unsigned char	*s;
 
-	elem->leftover = BUFFER_SIZE;
+	elem->leftover = elem->bytes_read;
 	index = elem->buff0;
 	s = elem->buffer + elem->buff0;
-	while (index < BUFFER_SIZE)
+	while (index < elem->bytes_read)
 	{
 		index++;
-		if (*s == c || index == BUFFER_SIZE)
+		if (*s == c || index == elem->bytes_read)
 			break ;
 		s++;
 	}
@@ -113,8 +114,8 @@ unsigned char	*ft_split2(t_gnl *elem, const unsigned char c)
 		return (NULL);
 	elem->leftover -= index;
 	elem->retsize += index - elem->buff0;
-	if (index == BUFFER_SIZE)
-		index = 0;		
+	if (index == elem->bytes_read)
+		index = 0;
 	elem->buff0 = index;
 	return (elem->retval);
 }

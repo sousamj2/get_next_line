@@ -6,7 +6,7 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 09:43:47 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/16 06:13:42 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/16 09:52:04 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_gnl
 	ssize_t			retsize;
 	ssize_t			leftover;
 	ssize_t			buff0;
+	ssize_t			bytes_read;
 	int				read0_1st;
 	struct s_gnl	*next;
 }			t_gnl;

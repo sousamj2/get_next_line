@@ -6,7 +6,7 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 09:44:07 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/16 09:38:07 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/16 10:03:15 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*get_next_line(int fd)
 	/* static t_gnl	*gnl_lst = NULL; */
 	t_gnl			*elem;
 	unsigned char	*retval;
-	ssize_t			bytes_read;
+	/* ssize_t			bytes_read; */
 	static t_gnl	single = {.fd = -1};
 	int bufsize		= BUFFER_SIZE;
 
@@ -30,20 +30,20 @@ char	*get_next_line(int fd)
 	{
 		if (elem->leftover == 0)
 		{
-			bytes_read = read(fd, elem->buffer, bufsize);
-			if (bytes_read < 0)
+			elem->bytes_read = read(fd, elem->buffer, bufsize);
+			if (elem->bytes_read < 0)
 				break ;
 		}
 		/* if (bytes_read == 0) */
 		/* 	ft_del_gnl(&gnl_lst, fd); */
-		if (bytes_read == 0)
+		if (elem->bytes_read == 0)
 		{
 			if(!elem->read0_1st && elem->retval != NULL)
 				elem->read0_1st = 1;
 			else
 				break;
 		}
-		if (!elem->read0_1st)
+		if (elem->bytes_read != 0)
 			elem->retval = ft_split2(elem, '\n');
 		if (elem->leftover != 0 || elem->read0_1st)//&& (elem->retval != NULL))
 		{
@@ -54,7 +54,7 @@ char	*get_next_line(int fd)
 			elem->retval = NULL;
 			return ((char *) retval);
 		}
-		if (bytes_read == 0)
+		if (elem->bytes_read == 0)
 			break;
 	}
 	return (NULL);
