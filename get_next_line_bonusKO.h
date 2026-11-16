@@ -6,7 +6,7 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 09:43:47 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/16 12:50:40 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/16 13:09:35 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+
+/* #define MAXMEMORY 999916 */
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
