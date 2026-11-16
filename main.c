@@ -6,7 +6,7 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/12 09:45:00 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/16 13:05:32 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/16 14:22:58 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 int main(int argc, char *argv[])
 {
-	char *filename = "text.txt";
+	char *filename = "text_1.txt";
 	if (argc == 2)
 		filename = argv[1];
 	printf("%s:\n",filename);
