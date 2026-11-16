@@ -6,7 +6,7 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 09:44:07 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/16 12:37:51 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/16 13:23:32 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ char	*get_next_line(int fd)
 		{
 			if (!elem->read0_1st && elem->retval != NULL)
 				elem->read0_1st = 1;
-			else
-				break ;
+			/* else */
+			/* 	break ; */
 		}
 		if (elem->bytes_read != 0)
 			elem->retval = ft_split2(elem, '\n');
