@@ -25,6 +25,7 @@ t_gnl	new_gnl(t_gnl single, int fd)
 {
 	single.retval = NULL;
 	single.retsize = 0;
+	single.read0_1st = 0;
 	if (single.fd != -1)
 		return (single);
 	single.fd = fd;
@@ -32,7 +33,6 @@ t_gnl	new_gnl(t_gnl single, int fd)
 	single.leftover = 0;
 	single.buff0 = 0;
 	single.bytes_read = 0;
-	single.read0_1st = 0;
 	return (single);
 }
 
