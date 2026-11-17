@@ -6,7 +6,7 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/12 09:45:00 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/16 21:58:54 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/17 09:31:58 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ int		n_max_read = -1;
 
 ssize_t	__real_read(int fd, void *buf, size_t count);
 
-ssize_t	__wrap_read(int fd, void *buf, size_t count)
-{
-	if (n_max_read != -1 && read_count + 1 > n_max_read)
-		return (-1);
-	read_count++;
-	/* printf("Read count: [%d]: fd[%d], buf[%p: %s], count[%ld]\n", read_count, fd, buf, (char*)buf, count); */
-	return (__real_read(fd, buf, count));
-}
+/* ssize_t	__wrap_read(int fd, void *buf, size_t count) */
+/* { */
+/* 	if (n_max_read != -1 && read_count + 1 > n_max_read) */
+/* 		return (-1); */
+/* 	read_count++; */
+/* 	/\* printf("Read count: [%d]: fd[%d], buf[%p: %s], count[%ld]\n", read_count, fd, buf, (char*)buf, count); *\/ */
+/* 	return (__real_read(fd, buf, count)); */
+/* } */
 
 /* char *tests[18] = { */
 /* 	"9",		// 1 + 1 +  */
@@ -113,9 +113,9 @@ int main(int argc, char *argv[])
 	while (1) {
 		str = get_next_line(fd);
 		printf("%s", str);
+		free(str);
 		if (str == NULL || index == max_val)
 			break;			
-		free(str);
 		index++;
 	} 
 
