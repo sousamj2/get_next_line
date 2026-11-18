@@ -6,7 +6,7 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 09:44:07 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/18 17:44:48 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/18 18:30:32 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,34 @@
 
 char	*get_next_line(int fd)
 {
-	t_gnl			*elem;
-	unsigned char	*retval;
-	static t_gnl	single = {.fd = -1};
-
-	elem = &single;
-	new_gnl(elem, fd, 0);
-	while (1)
-	{
-		if (elem->leftover == 0)
-		{
-			elem->bytes_read = read(fd, elem->buffer, BUFFER_SIZE);
-			if (elem->bytes_read < 0)
-			{
-				new_gnl(elem, fd, 1);
-				break ;
-			}
-		}
-		if (elem->bytes_read == 0)
-		{
-			if (!elem->read0_1st && elem->retval != NULL)
-				elem->read0_1st = 1;
-			else if (elem->retval == NULL)
-				break ;
-		}
-		if (elem->bytes_read != 0)
-			elem->retval = ft_split2(elem, '\n');
+	t_gnl			*elem; // * 
+	unsigned char	*retval; // * 
+	static t_gnl	single = {.fd = -1}; // * 
+ // * 
+	elem = &single; // * 
+	new_gnl(elem, fd, 0); // * 
+	while (1) // * 
+	{ // * 
+		/* if (elem->leftover == 0) */
+		/* { */
+		/* 	elem->bytes_read = read(fd, elem->buffer, BUFFER_SIZE); */
+		/* 	if (elem->bytes_read < 0) */
+		/* 	{ */
+		/* 		new_gnl(elem, fd, 1); */
+		/* 		break ; */
+		/* 	} */
+		/* } */
+		/* if (elem->bytes_read == 0) */
+		/* { */
+		/* 	if (!elem->read0_1st && elem->retval != NULL) */
+		/* 		elem->read0_1st = 1; */
+		/* 	else if (elem->retval == NULL) */
+		/* 		break ; */
+		/* } */
+		/* if (elem->bytes_read != 0) */
+		/* 	elem->retval = ft_split2(elem, '\n'); */
+        if (preliminary_and_split2 (elem))
+			break ;
 		if (elem->retval == NULL)
 			return (NULL);
 		if (elem->leftover != 0
@@ -53,8 +55,6 @@ char	*get_next_line(int fd)
 			elem->retval = NULL;
 			return ((char *) retval);
 		}
-		if (elem->bytes_read == 0)
-			break ;
-	}
-	return (NULL);
+	} // * 
+	return (NULL); // * 
 }

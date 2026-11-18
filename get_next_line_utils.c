@@ -6,7 +6,7 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 10:16:55 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/18 17:57:43 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/18 18:29:10 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,29 @@ unsigned char	*ft_memjoin(unsigned char *s1, unsigned char *s2,
 		iter++;
 	}
 	return (retval);
+}
+
+
+int preliminary_and_split2(t_gnl *elem)
+{
+		if (elem->leftover == 0)
+		{
+			elem->bytes_read = read(elem->fd, elem->buffer, BUFFER_SIZE);
+			if (elem->bytes_read < 0)
+			{
+				new_gnl(elem, elem->fd, 1);
+				return (1) ;
+			}
+		}
+		if (elem->bytes_read == 0)
+		{
+			if (!elem->read0_1st && elem->retval != NULL)
+				elem->read0_1st = 1;
+			else if (elem->retval == NULL)
+				return (1) ;
+		}
+		if (elem->bytes_read != 0)
+			elem->retval = ft_split2(elem, '\n');
+		return (0);
+	
 }

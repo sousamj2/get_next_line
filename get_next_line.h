@@ -6,7 +6,7 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 09:43:47 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/18 17:57:08 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/18 18:30:16 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,5 @@ unsigned char	*ft_memjoin(unsigned char *s1, unsigned char *s2,
 unsigned char	*ft_split2(t_gnl *elem, const unsigned char c);
 char			*get_next_line(int fd);
 void			new_gnl(t_gnl *elem, int fd, int opt);
+int preliminary_and_split2(t_gnl *elem);
 #endif
