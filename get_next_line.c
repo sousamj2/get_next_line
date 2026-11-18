@@ -6,7 +6,7 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 09:44:07 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/18 18:34:47 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/18 18:47:07 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ char	*get_next_line(int fd)
 	{
 		if (preliminary_and_split2 (elem))
 			break ;
-		if (elem->retval == NULL)
-			return (NULL);
 		if (elem->leftover != 0
 			|| elem->read0_1st || elem->retval[elem->retsize - 1] == '\n')
 		{
 			if (!BINNARY_FILE)
 				retval = ft_memjoin(elem->retval, (unsigned char *)"",
 						elem->retsize, 1);
+			else
+				retval = elem->retval;
 			if (retval == NULL)
 				return (NULL);
 			elem->retval = NULL;

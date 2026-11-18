@@ -6,7 +6,7 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 10:16:55 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/18 18:34:27 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/18 19:12:24 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void	new_gnl(t_gnl *elem, int fd, int opt)
 {
 	if (opt == 1)
 	{
-		free(elem->retval);
+		if (elem->retval != NULL)
+			free(elem->retval);
 		bzero(elem->buffer, BUFFER_SIZE);
 	}
 	elem->retval = NULL;
@@ -29,7 +30,6 @@ void	new_gnl(t_gnl *elem, int fd, int opt)
 	elem->leftover = 0;
 	elem->buff0 = 0;
 	elem->bytes_read = 0;
-	return ;
 }
 
 unsigned char	*ft_split2(t_gnl *elem, const unsigned char c)
@@ -66,12 +66,13 @@ unsigned char	*ft_memjoin(unsigned char *s1, unsigned char *s2,
 	ssize_t			iter;
 
 	iter = 0;
-	if (s2 == NULL)
-		return (NULL);
 	retval = malloc((ss1 + ss2) * sizeof(unsigned char));
-	if (!retval)
-		return (NULL);
-	while (iter < ss1)
+    if (retval == NULL || s2 == NULL)
+	{
+		free(s1);
+        return (NULL);
+    }
+    while (iter < ss1)
 	{
 		retval[iter] = s1[iter];
 		iter++;
@@ -106,5 +107,7 @@ int	preliminary_and_split2(t_gnl *elem)
 	}
 	if (elem->bytes_read != 0)
 		elem->retval = ft_split2(elem, '\n');
+	if (elem->retval == NULL)
+			return (1);
 	return (0);
 }
