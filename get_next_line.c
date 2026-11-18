@@ -6,7 +6,7 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 09:44:07 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/18 17:40:31 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/18 17:44:48 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,6 @@ char	*get_next_line(int fd)
 			if (elem->bytes_read < 0)
 			{
 				new_gnl(elem, fd, 1);
-				/* elem->retsize = 0; */
-				/* elem->buff0 = 0; */
-				/* elem->bytes_read = 0; */
-				/* elem->read0_1st = 0; */
-				/* elem->leftover = 0; */
 				break ;
 			}
 		}

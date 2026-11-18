@@ -6,7 +6,7 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 10:16:55 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/18 17:40:15 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/18 17:57:43 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 void	new_gnl(t_gnl *elem, int fd, int opt)
 {
-    if (opt == 1)
+	if (opt == 1)
 	{
 		free(elem->retval);
 		bzero(elem->buffer, BUFFER_SIZE);
-	}        
+	}
 	elem->retval = NULL;
 	elem->retsize = 0;
 	elem->read0_1st = 0;
