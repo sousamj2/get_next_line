@@ -6,7 +6,7 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 09:43:47 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/18 15:09:52 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/18 17:38:32 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,13 @@
 # include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
-
-# ifndef N_BUFFERS
-#  define N_BUFFERS 1
-# elif N_BUFFERS > 100
-#  undef N_BUFFERS
-#  define N_BUFFERS 100
-# elif N_BUFFERS <= 0
-#  undef N_BUFFERS
-#  define N_BUFFERS 1
-# endif
-
 /* #define MAXMEMORY 999916 */
+
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
-# elif BUFFER_SIZE * N_BUFFERS > 500000
+# elif BUFFER_SIZE > 500000
 #  undef BUFFER_SIZE
-#  define BUFFER_SIZE 500000 / N_BUFFERS
+#  define BUFFER_SIZE 500000
 # elif BUFFER_SIZE <= 0
 #  undef BUFFER_SIZE
 #  define BUFFER_SIZE 1
@@ -71,10 +61,10 @@ t_gnl			*ft_get_gnl(t_gnl **gnl, int fd);
 void			ft_del_gnl(t_gnl **gnl, int fd);
 unsigned char	*ft_memjoin(unsigned char *s1, unsigned char *s2,
 					ssize_t ss1, ssize_t ss2);
-unsigned char	*ft_split2(t_gnl elem, const unsigned char c);
+unsigned char	*ft_split2(t_gnl *elem, const unsigned char c);
 /*unsigned char *ft_split2(t_gnl *elem, const unsigned char c, ssize_t nread);*/
 char			*get_next_line(int fd);
-t_gnl			new_gnl(t_gnl single, int fd);
+void			new_gnl(t_gnl *elem, int fd, int opt);
 #endif
 /* /\* unsigned char	*ft_memjoin(unsigned char
 *s1, unsigned char *s2, size_t ss1, size_t ss2); *\/ */

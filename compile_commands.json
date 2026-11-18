@@ -18,44 +18,5 @@
     ],
     "directory": "/home/marisous/Projects42/get_next_line",
     "output": "objs/get_next_line.o"
-  },
-  {
-    "file": "get_next_line_utils.c",
-    "arguments": [
-      "/usr/bin/cc",
-      "-Wall",
-      "-Wextra",
-      "-Werror",
-      "-I.",
-      "-D",
-      "BUFFER_SIZE=42",
-      "-g",
-      "-O0",
-      "-c",
-      "get_next_line_utils.c",
-      "-o",
-      "objs/get_next_line_utils.o"
-    ],
-    "directory": "/home/marisous/Projects42/get_next_line",
-    "output": "objs/get_next_line_utils.o"
-  },
-  {
-    "file": "main.c",
-    "arguments": [
-      "/usr/bin/cc",
-      "-Wall",
-      "-Wextra",
-      "-Werror",
-      "-I.",
-      "-D",
-      "BUFFER_SIZE=42",
-      "-g",
-      "-O0",
-      "main.c",
-      "-o",
-      "run_gnl"
-    ],
-    "directory": "/home/marisous/Projects42/get_next_line",
-    "output": "run_gnl"
   }
 ]

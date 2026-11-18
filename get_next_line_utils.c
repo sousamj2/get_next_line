@@ -6,52 +6,57 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 10:16:55 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/18 15:01:14 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/18 17:40:15 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <strings.h>
 
-t_gnl	new_gnl(t_gnl elem, int fd)
+void	new_gnl(t_gnl *elem, int fd, int opt)
 {
-	elem.retval = NULL;
-	elem.retsize = 0;
-	elem.read0_1st = 0;
-	if (elem.fd != -1)
-		return (elem);
-	elem.fd = fd;
-	elem.leftover = 0;
-	elem.buff0 = 0;
-	elem.bytes_read = 0;
-	return (elem);
+    if (opt == 1)
+	{
+		free(elem->retval);
+		bzero(elem->buffer, BUFFER_SIZE);
+	}        
+	elem->retval = NULL;
+	elem->retsize = 0;
+	elem->read0_1st = 0;
+	if (elem->fd != -1)
+		return ;
+	elem->fd = fd;
+	elem->leftover = 0;
+	elem->buff0 = 0;
+	elem->bytes_read = 0;
+	return ;
 }
 
-
-unsigned char	*ft_split2(t_gnl elem, const unsigned char c)
+unsigned char	*ft_split2(t_gnl *elem, const unsigned char c)
 {
 	ssize_t			index;
 	unsigned char	*s;
 
-	elem.leftover = elem.bytes_read;
-	index = elem.buff0;
-	s = elem.buffer + elem.buff0;
-	while (index < elem.bytes_read)
+	elem->leftover = elem->bytes_read;
+	index = elem->buff0;
+	s = elem->buffer + elem->buff0;
+	while (index < elem->bytes_read)
 	{
 		index++;
-		if (*s == c || index == elem.bytes_read)
+		if (*s == c || index == elem->bytes_read)
 			break ;
 		s++;
 	}
-	elem.retval = ft_memjoin(elem.retval, elem.buffer + elem.buff0,
-			elem.retsize, index - elem.buff0);
-	if (elem.retval == NULL)
+	elem->retval = ft_memjoin(elem->retval, elem->buffer + elem->buff0,
+			elem->retsize, index - elem->buff0);
+	if (elem->retval == NULL)
 		return (NULL);
-	elem.leftover -= index;
-	elem.retsize += index - elem.buff0;
-	if (index == elem.bytes_read)
+	elem->leftover -= index;
+	elem->retsize += index - elem->buff0;
+	if (index == elem->bytes_read)
 		index = 0;
-	elem.buff0 = index;
-	return (elem.retval);
+	elem->buff0 = index;
+	return (elem->retval);
 }
 
 unsigned char	*ft_memjoin(unsigned char *s1, unsigned char *s2,
