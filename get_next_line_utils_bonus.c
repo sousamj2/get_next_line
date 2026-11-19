@@ -6,7 +6,7 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 10:16:55 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/19 10:53:46 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/19 13:00:12 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 void	new_gnl_bonus(t_gnl *a_gnl, int fd, int opt)
 {
 	if (a_gnl[0].fd == -1)
-		while (opt < 20)
+		while (opt < FOPEN_MAX)
 		{
 			opt++;
-			a_gnl[opt].init = 1;
+			a_gnl[opt].init = 0;
 		}
 	if (opt == 1)
 	{
@@ -27,6 +27,7 @@ void	new_gnl_bonus(t_gnl *a_gnl, int fd, int opt)
 			free(a_gnl[fd].retval);
 		a_gnl[fd].init = 0;
 		bzero(a_gnl[fd].buffer, BUFFER_SIZE);
+		return ;
 	}
 	a_gnl[fd].retval = NULL;
 	a_gnl[fd].retsize = 0;
@@ -38,7 +39,6 @@ void	new_gnl_bonus(t_gnl *a_gnl, int fd, int opt)
 	a_gnl[fd].leftover = 0;
 	a_gnl[fd].buff0 = 0;
 	a_gnl[fd].bytes_read = 0;
-	return ;
 }
 
 unsigned char	*ft_split2_bonus(t_gnl *a_gnl, const unsigned char c, int fd)

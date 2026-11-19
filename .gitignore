@@ -1,3 +1,4 @@
 *.o
 /run_gnl
 /.cache/
+/run_gnl_bonus

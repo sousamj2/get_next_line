@@ -6,7 +6,7 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/12 09:45:00 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/19 09:55:41 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/19 12:40:51 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,25 +71,33 @@
 
 int	main(int argc, char *argv[])
 {
-	char	*filename;
+	char	*filename1;
+	char	*filename2;
 	char	*str;
 	int		index;
 	int		max_val;
-	int		fd;
+	int		fd1;
+	int		fd2;
 
-	filename = "limits/04";
+	filename1 = "limits/04";
+	filename2 = "limits/05";
 	if (argc == 2)
-		filename = argv[1];
-	printf("%s:\n", filename);
-	fd = open(filename, O_RDONLY);
+		filename2 = argv[1];
+	printf("%s:\n", filename1);
+	printf("%s:\n", filename2);
+	fd1 = open(filename1, O_RDONLY);
+	fd2 = open(filename2, O_RDONLY);
 	index = 0;
 	max_val = 15;
 	while (1)
 	{
-		str = get_next_line_bonus(fd);
+		str = get_next_line_bonus(fd1);
 		printf("%s", str);
 		free(str);
-		if (str == NULL || index == max_val)
+		str = get_next_line_bonus(fd2);
+		printf("%s", str);
+		free(str);
+		if (str == NULL || index == max_val || 1)
 			break ;
 		index++;
 	}
