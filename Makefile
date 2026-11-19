@@ -6,7 +6,7 @@
 #    By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/11/05 11:20:42 by marisous          #+#    #+#              #
-#    Updated: 2026/11/18 18:12:08 by marisous         ###   ########.fr        #
+#    Updated: 2026/11/19 09:54:53 by marisous         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 VALG	= 1
@@ -35,29 +35,29 @@ else
 endif
 
 NAME	= run_gnl
-# NAMEBON	= run_gnl_bonus
+NAMEBON	= run_gnl_bonus
 
 HDRS	= get_next_line.h
 
 SRCS	= get_next_line.c get_next_line_utils.c
 
-# HDRSBON	= get_next_line_bonusKO.h
+HDRSBON	= get_next_line_bonus.h
 
-# SRCSBON	= get_next_line_bonusKO.c get_next_line_utils_bonusKO.c
+SRCSBON	= get_next_line_bonus.c get_next_line_utils_bonus.c
 
 OBJS	= $(addprefix $(OBJ_FOLDER)/, 	$(SRCS:.c=.o))
 
-# OBJSBON	= $(addprefix $(OBJ_FOLDER)/, 	$(SRCSBON:.c=.o))
+OBJSBON	= $(addprefix $(OBJ_FOLDER)/, 	$(SRCSBON:.c=.o))
 
-all: $(NAME)
+all: $(NAME) bonus
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(DEBUG) $^ main.c -o $@
 
-# bonus: $(NAMEBON)
+bonus: $(NAMEBON)
 
-# $(NAMEBON): $(OBJSBON)
-# 	$(CC) $(CFLAGS) $(DEBUG) $^ main.c -o $@
+$(NAMEBON): $(OBJSBON)
+	$(CC) $(CFLAGS) $(DEBUG) $^ main_bonus.c -o $@
 
 $(OBJ_FOLDER)/%.o: %.c $(HDRS) $(HDRSBON)
 	@mkdir -p objs/
@@ -77,7 +77,7 @@ run: re
 bon: re
 	$(PREXEC) $(EXEC) ./$(NAMEBON) $(ARGS) | cat -e ; echo
 
-.PHONY: all clean fclean re norm eclean
+.PHONY: all clean fclean re norm eclean bonus
 
 test:
 	@echo NAME=$(NAME)
