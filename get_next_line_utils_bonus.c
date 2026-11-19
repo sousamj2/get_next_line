@@ -6,7 +6,7 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 10:16:55 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/19 13:00:12 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/19 14:48:50 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	new_gnl_bonus(t_gnl *a_gnl, int fd, int opt)
 	a_gnl[fd].retval = NULL;
 	a_gnl[fd].retsize = 0;
 	a_gnl[fd].read0_1st = 0;
-	if (a_gnl[fd].init == 0)
+	if (a_gnl[fd].init == 1)
 		return ;
 	a_gnl[fd].init = 1;
 	a_gnl[fd].fd = fd;
