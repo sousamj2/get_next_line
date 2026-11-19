@@ -6,7 +6,7 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 09:44:07 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/19 12:49:27 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/19 13:42:56 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*get_next_line_bonus(int fd)
 	unsigned char	*retval;
 	static t_gnl	a_gnl[FOPEN_MAX] = {{.fd = -1}};
 
+    if (fd >= FOPEN_MAX)
+		return (NULL);
 	new_gnl_bonus(a_gnl, fd, 0);
 	while (1)
 	{
