@@ -6,7 +6,7 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 09:43:47 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/19 10:37:40 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/19 13:55:57 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct s_gnl
 unsigned char	*ft_memjoin_bonus(unsigned char *s1, unsigned char *s2,
 					ssize_t ss1, ssize_t ss2);
 unsigned char	*ft_split2_bonus(t_gnl *elem, const unsigned char c, int fd);
-char			*get_next_line_bonus(int fd);
+char			*get_next_line(int fd);
 /* void			new_gnl_bonus(t_gnl *elem, int fd, int opt); */
 int				preliminary_and_split2_bonus(t_gnl *elem, int fd);
 /* t_gnl **	new_gnl_bonus(t_gnl **a_gnl, int fd, int opt) */

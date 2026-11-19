@@ -6,7 +6,7 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/12 09:45:00 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/19 12:40:51 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/19 13:55:38 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,10 @@ int	main(int argc, char *argv[])
 	max_val = 15;
 	while (1)
 	{
-		str = get_next_line_bonus(fd1);
+		str = get_next_line(fd1);
 		printf("%s", str);
 		free(str);
-		str = get_next_line_bonus(fd2);
+		str = get_next_line(fd2);
 		printf("%s", str);
 		free(str);
 		if (str == NULL || index == max_val || 1)

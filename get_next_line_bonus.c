@@ -6,13 +6,13 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 09:44:07 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/19 13:42:56 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/19 13:55:13 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-char	*get_next_line_bonus(int fd)
+char	*get_next_line(int fd)
 {
 	unsigned char	*retval;
 	static t_gnl	a_gnl[FOPEN_MAX] = {{.fd = -1}};
