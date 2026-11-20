@@ -6,7 +6,7 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 09:43:47 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/19 13:55:57 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/20 13:23:53 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_gnl
 	unsigned char	buffer[BUFFER_SIZE];
 	unsigned char	*retval;
 	ssize_t			retsize;
+	ssize_t			memsize;
 	ssize_t			leftover;
 	ssize_t			buff0;
 	ssize_t			bytes_read;
