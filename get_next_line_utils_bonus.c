@@ -6,7 +6,7 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 10:16:55 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/20 13:38:51 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/21 17:27:42 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ unsigned char	*ft_split2_bonus(t_gnl *a_gnl, const unsigned char c, int fd)
 			break ;
 		s++;
 	}
-	a_gnl[fd].retval = ft_memjoin_bonus(a_gnl[fd].retval, a_gnl[fd].buffer
-		+ a_gnl[fd].buff0, a_gnl[fd].retsize, index - a_gnl[fd].buff0);
+	a_gnl[fd].retval = ft_memjoin_bonus(a_gnl[fd].buffer + a_gnl[fd].buff0,
+			a_gnl[fd].retsize, index - a_gnl[fd].buff0, &a_gnl[fd]);
 	if (a_gnl[fd].retval == NULL)
 		return (NULL);
 	a_gnl[fd].leftover -= index;
@@ -86,32 +86,32 @@ int	preliminary_and_split2_bonus(t_gnl *a_gnl, int fd)
 			return (1);
 	}
 	if (a_gnl[fd].bytes_read != 0)
-        a_gnl[fd].retval = ft_split2_bonus(a_gnl, '\n', fd);
+		a_gnl[fd].retval = ft_split2_bonus(a_gnl, '\n', fd);
 	if (a_gnl[fd].retval == NULL)
 		return (1);
 	return (0);
 }
 
-unsigned char	*ft_memjoin_bonus(unsigned char *s1, unsigned char *s2,
-					ssize_t ss1, ssize_t ss2)
+unsigned char	*ft_memjoin_bonus(unsigned char *s2,
+							ssize_t ss1, ssize_t ss2, t_gnl *elem)
 {
 	unsigned char	*retval;
 	ssize_t			iter;
 
 	iter = 0;
-	retval = malloc((ss1 + ss2) * sizeof(unsigned char));
+	retval = ft_new_malloc(elem, &iter, ss2);
 	if (retval == NULL || s2 == NULL)
 	{
-		free(s1);
+		free(elem->retval);
 		return (NULL);
 	}
 	while (iter < ss1)
 	{
-		retval[iter] = s1[iter];
+		retval[iter] = elem->retval[iter];
 		iter++;
 	}
-	if (ss1)
-		free(s1);
+	if (retval != elem->retval)
+		free(elem->retval);
 	while (iter < ss1 + ss2)
 	{
 		retval[iter] = s2[iter - ss1];
@@ -120,31 +120,31 @@ unsigned char	*ft_memjoin_bonus(unsigned char *s1, unsigned char *s2,
 	return (retval);
 }
 
-unsigned char *ft_memjoin_bonus_test(unsigned char **string, ssize_t *ssizes, t_gnl *elem)
+unsigned char	*ft_new_malloc(t_gnl *elem, ssize_t *iter, ssize_t ss2)
 {
-	ssize_t			iter;
+	unsigned char	*retval;
 
-	iter = 0;
-    if (ssizes[0] + ssizes[1] > elem->memsize)
-        elem->retval = malloc((ssizes[0] + ssizes[1]) * sizeof(unsigned char));
-    else
-		iter = ssizes[0] + 1;
-	if (elem->retval == NULL || string[1] == NULL)
+	*iter = 0;
+	if (elem->retsize + ss2 > elem->memsize)
 	{
-		free(string[0]);
-		return (NULL);
+		if (!elem->memsize)
+			elem->memsize = (BUFFER_SIZE + 1) / 2;
+		retval = malloc(2 * elem->memsize * sizeof(unsigned char));
+		if (retval == NULL)
+		{
+			retval = malloc((elem->retsize + ss2) * sizeof(unsigned char));
+			if (retval == NULL)
+				return (NULL);
+			else
+				elem->memsize = elem->retsize + ss2;
+		}
+		else
+			elem->memsize *= 2;
 	}
-	while (iter < ssizes[0])
+	else
 	{
-		elem->retval[iter] = string[0][iter];
-		iter++;
+		*iter = elem->retsize;
+		retval = elem->retval;
 	}
-	if (ssizes[0])
-		free(string[0]);
-	while (iter < ssizes[0] + ssizes[1])
-	{
-		elem->retval[iter] = string[1][iter - ssizes[0]];
-		iter++;
-	}
-	return (elem->retval);
+	return (retval);
 }

@@ -6,12 +6,12 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 09:43:47 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/20 13:23:53 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/21 16:38:39 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 /* # include <stdlib.h> */
 # include <unistd.h>
@@ -48,13 +48,12 @@ typedef struct s_gnl
 	int				read0_1st;
 }			t_gnl;
 
-unsigned char	*ft_memjoin_bonus(unsigned char *s1, unsigned char *s2,
-					ssize_t ss1, ssize_t ss2);
 unsigned char	*ft_split2_bonus(t_gnl *elem, const unsigned char c, int fd);
 char			*get_next_line(int fd);
-/* void			new_gnl_bonus(t_gnl *elem, int fd, int opt); */
 int				preliminary_and_split2_bonus(t_gnl *elem, int fd);
-/* t_gnl **	new_gnl_bonus(t_gnl **a_gnl, int fd, int opt) */
-/* t_gnl *	new_gnl_bonus(t_gnl *a_gnl, int fd, int opt); */
-void	new_gnl_bonus(t_gnl *a_gnl, int fd, int opt);
+void			new_gnl_bonus(t_gnl *a_gnl, int fd, int opt);
+unsigned char	*ft_new_malloc(t_gnl *elem, ssize_t *iter, ssize_t ss2);
+unsigned char	*ft_memjoin_bonus(unsigned char *s2,
+					ssize_t ss1, ssize_t ss2, t_gnl *elem);
+
 #endif
