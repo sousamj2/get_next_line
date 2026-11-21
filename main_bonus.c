@@ -6,7 +6,7 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/12 09:45:00 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/19 13:55:38 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/21 22:36:55 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,21 +72,17 @@
 int	main(int argc, char *argv[])
 {
 	char	*filename1;
-	char	*filename2;
 	char	*str;
 	int		index;
 	int		max_val;
 	int		fd1;
-	int		fd2;
 
 	filename1 = "limits/04";
-	filename2 = "limits/05";
 	if (argc == 2)
-		filename2 = argv[1];
+		filename1 = argv[1];
 	printf("%s:\n", filename1);
-	printf("%s:\n", filename2);
+	printf("%d:\n", FOPEN_MAX);
 	fd1 = open(filename1, O_RDONLY);
-	fd2 = open(filename2, O_RDONLY);
 	index = 0;
 	max_val = 15;
 	while (1)
@@ -94,12 +90,44 @@ int	main(int argc, char *argv[])
 		str = get_next_line(fd1);
 		printf("%s", str);
 		free(str);
-		str = get_next_line(fd2);
-		printf("%s", str);
-		free(str);
-		if (str == NULL || index == max_val || 1)
+		if (str == NULL || index == max_val)
 			break ;
 		index++;
 	}
 	return (0);
 }
+
+/* int	main(int argc, char *argv[]) */
+/* { */
+/* 	char	*filename1; */
+/* 	char	*filename2; */
+/* 	char	*str; */
+/* 	int		index; */
+/* 	int		max_val; */
+/* 	int		fd1; */
+/* 	int		fd2; */
+
+/* 	filename1 = "limits/04"; */
+/* 	filename2 = "limits/05"; */
+/* 	if (argc == 2) */
+/* 		filename2 = argv[1]; */
+/* 	printf("%s:\n", filename1); */
+/* 	printf("%s:\n", filename2); */
+/* 	fd1 = open(filename1, O_RDONLY); */
+/* 	fd2 = open(filename2, O_RDONLY); */
+/* 	index = 0; */
+/* 	max_val = 15; */
+/* 	while (1) */
+/* 	{ */
+/* 		str = get_next_line(fd1); */
+/* 		printf("%s", str); */
+/* 		free(str); */
+/* 		str = get_next_line(fd2); */
+/* 		printf("%s", str); */
+/* 		free(str); */
+/* 		if (str == NULL || index == max_val) */
+/* 			break ; */
+/* 		index++; */
+/* 	} */
+/* 	return (0); */
+/* } */
