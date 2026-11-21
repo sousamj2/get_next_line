@@ -6,7 +6,7 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 09:43:47 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/21 16:38:39 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/21 22:40:42 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@
 # elif BUFFER_SIZE <= 0
 #  undef BUFFER_SIZE
 #  define BUFFER_SIZE 1
+# endif
+
+# ifndef FOPEN_MAX_MJ
+#  define FOPEN_MAX_MJ 1000
 # endif
 
 # ifndef BINNARY_FILE
