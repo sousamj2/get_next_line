@@ -6,7 +6,7 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 10:16:55 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/21 17:27:42 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/22 16:52:21 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ unsigned char	*ft_memjoin_bonus(unsigned char *s2,
 	ssize_t			iter;
 
 	iter = 0;
-	retval = ft_new_malloc(elem, &iter, ss2);
+	retval = ft_new_malloc(elem, &iter, ss2, *s2 == '\0');
 	if (retval == NULL || s2 == NULL)
 	{
 		free(elem->retval);
@@ -120,31 +120,26 @@ unsigned char	*ft_memjoin_bonus(unsigned char *s2,
 	return (retval);
 }
 
-unsigned char	*ft_new_malloc(t_gnl *elem, ssize_t *iter, ssize_t ss2)
+unsigned char	*ft_new_malloc(t_gnl *elem, ssize_t *iter, ssize_t ss2, int last)
 {
 	unsigned char	*retval;
 
-	*iter = 0;
-	if (elem->retsize + ss2 > elem->memsize)
-	{
-		if (!elem->memsize)
-			elem->memsize = (BUFFER_SIZE + 1) / 2;
-		retval = malloc(2 * elem->memsize * sizeof(unsigned char));
-		if (retval == NULL)
-		{
-			retval = malloc((elem->retsize + ss2) * sizeof(unsigned char));
-			if (retval == NULL)
-				return (NULL);
-			else
-				elem->memsize = elem->retsize + ss2;
-		}
-		else
-			elem->memsize *= 2;
-	}
-	else
+	if (elem->retsize + ss2 <= elem->memsize && !last)
 	{
 		*iter = elem->retsize;
 		retval = elem->retval;
+	}
+	else
+	{	
+		if (!elem->memsize)
+			elem->memsize = ss2 + (last < 0);
+		else if (ss2 < BUFFER_SIZE || BUFFER_SIZE == 1 || last)
+			elem->memsize = elem->retsize + ss2;
+		else
+			elem->memsize = (elem->retsize + ss2) * 2;
+		retval = malloc((elem->memsize) * sizeof(unsigned char));
+		if (retval == NULL)
+				return (NULL);
 	}
 	return (retval);
 }

@@ -6,7 +6,7 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 09:44:07 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/21 21:30:53 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/22 01:22:07 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*get_next_line(int fd)
 {
 	unsigned char	*retval;
-	static t_gnl	a_gnl[FOPEN_MAX_MJ] = {{.fd = -1}};
+	static t_gnl	a_gnl[FOPEN_MAX]; // = {{.fd = -1}};
 
 	if (fd >= FOPEN_MAX || fd < 0)
 		return (NULL);

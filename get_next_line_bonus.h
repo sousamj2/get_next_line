@@ -6,7 +6,7 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 09:43:47 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/21 22:40:42 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/22 13:25:08 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,13 @@
 /* #define MAXMEMORY 999916 */
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
-# elif BUFFER_SIZE > 500000
+#  define BUFFER_SIZE 10
+# elif BUFFER_SIZE > 500000 
 #  undef BUFFER_SIZE
 #  define BUFFER_SIZE 500000
 # elif BUFFER_SIZE <= 0
 #  undef BUFFER_SIZE
 #  define BUFFER_SIZE 1
-# endif
-
-# ifndef FOPEN_MAX_MJ
-#  define FOPEN_MAX_MJ 1000
 # endif
 
 # ifndef BINNARY_FILE
@@ -56,7 +52,7 @@ unsigned char	*ft_split2_bonus(t_gnl *elem, const unsigned char c, int fd);
 char			*get_next_line(int fd);
 int				preliminary_and_split2_bonus(t_gnl *elem, int fd);
 void			new_gnl_bonus(t_gnl *a_gnl, int fd, int opt);
-unsigned char	*ft_new_malloc(t_gnl *elem, ssize_t *iter, ssize_t ss2);
+unsigned char	*ft_new_malloc(t_gnl *elem, ssize_t *iter, ssize_t ss2, int last);
 unsigned char	*ft_memjoin_bonus(unsigned char *s2,
 					ssize_t ss1, ssize_t ss2, t_gnl *elem);
 
