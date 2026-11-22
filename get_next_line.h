@@ -6,18 +6,15 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 09:43:47 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/18 18:33:58 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/22 18:00:38 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-/* # include <stdlib.h> */
-# include <unistd.h>
-# include <stddef.h>
-# include <stdio.h>
 # include <stdlib.h>
+# include <unistd.h>
 /* #define MAXMEMORY 999916 */
 
 # ifndef BUFFER_SIZE

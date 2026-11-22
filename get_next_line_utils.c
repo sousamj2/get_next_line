@@ -6,12 +6,11 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 10:16:55 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/18 19:15:13 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/22 17:54:14 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <strings.h>
 
 void	new_gnl(t_gnl *elem, int fd, int opt)
 {
@@ -19,7 +18,6 @@ void	new_gnl(t_gnl *elem, int fd, int opt)
 	{
 		if (elem->retval != NULL)
 			free(elem->retval);
-		bzero(elem->buffer, BUFFER_SIZE);
 	}
 	elem->retval = NULL;
 	elem->retsize = 0;

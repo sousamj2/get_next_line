@@ -6,7 +6,7 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/12 09:45:00 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/22 16:35:29 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/22 17:51:21 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,11 @@ int	main(int argc, char *argv[])
 	int		max_val;
 	int		fd1;
 
-	filename1 = "variable_nls.txt";
-	filename1 = "limits/19";
 	filename1 = "lines_around_10.txt";
 	if (argc == 2)
 		filename1 = argv[1];
 	printf("%s:\n", filename1);
-	printf("%d:\n", FOPEN_MAX);
+	printf("%d:\n", FOPEN_MAX_MJ);
 	fd1 = open(filename1, O_RDONLY);
 	index = 0;
 	max_val = 15;

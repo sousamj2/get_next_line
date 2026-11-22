@@ -6,12 +6,11 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 10:16:55 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/22 16:52:21 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/22 17:51:40 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
-#include <strings.h>
 
 void	new_gnl_bonus(t_gnl *a_gnl, int fd, int opt)
 {
@@ -20,24 +19,23 @@ void	new_gnl_bonus(t_gnl *a_gnl, int fd, int opt)
 		if (a_gnl[fd].retval != NULL)
 			free(a_gnl[fd].retval);
 		a_gnl[fd].init = 0;
-		bzero(a_gnl[fd].buffer, BUFFER_SIZE);
 		a_gnl[fd].retval = NULL;
 		a_gnl[fd].retsize = 0;
 		a_gnl[fd].memsize = 0;
-		a_gnl[fd].read0_1st = 0;
+		a_gnl[fd].read0 = 0;
 		return ;
 	}
 	a_gnl[fd].retval = NULL;
 	a_gnl[fd].retsize = 0;
 	a_gnl[fd].memsize = 0;
-	a_gnl[fd].read0_1st = 0;
+	a_gnl[fd].read0 = 0;
 	if (a_gnl[fd].init == 1)
 		return ;
 	a_gnl[fd].init = 1;
 	a_gnl[fd].fd = fd;
 	a_gnl[fd].leftover = 0;
 	a_gnl[fd].buff0 = 0;
-	a_gnl[fd].bytes_read = 0;
+	a_gnl[fd].nb_read = 0;
 }
 
 unsigned char	*ft_split2_bonus(t_gnl *a_gnl, const unsigned char c, int fd)
@@ -45,13 +43,13 @@ unsigned char	*ft_split2_bonus(t_gnl *a_gnl, const unsigned char c, int fd)
 	ssize_t			index;
 	unsigned char	*s;
 
-	a_gnl[fd].leftover = a_gnl[fd].bytes_read;
+	a_gnl[fd].leftover = a_gnl[fd].nb_read;
 	index = a_gnl[fd].buff0;
 	s = a_gnl[fd].buffer + a_gnl[fd].buff0;
-	while (index < a_gnl[fd].bytes_read)
+	while (index < a_gnl[fd].nb_read)
 	{
 		index++;
-		if (*s == c || index == a_gnl[fd].bytes_read)
+		if (*s == c || index == a_gnl[fd].nb_read)
 			break ;
 		s++;
 	}
@@ -61,7 +59,7 @@ unsigned char	*ft_split2_bonus(t_gnl *a_gnl, const unsigned char c, int fd)
 		return (NULL);
 	a_gnl[fd].leftover -= index;
 	a_gnl[fd].retsize += index - a_gnl[fd].buff0;
-	if (index == a_gnl[fd].bytes_read)
+	if (index == a_gnl[fd].nb_read)
 		index = 0;
 	a_gnl[fd].buff0 = index;
 	return (a_gnl[fd].retval);
@@ -71,21 +69,21 @@ int	preliminary_and_split2_bonus(t_gnl *a_gnl, int fd)
 {
 	if (a_gnl[fd].leftover == 0)
 	{
-		a_gnl[fd].bytes_read = read(a_gnl[fd].fd, a_gnl[fd].buffer, BUFFER_SIZE);
-		if (a_gnl[fd].bytes_read < 0)
+		a_gnl[fd].nb_read = read(a_gnl[fd].fd, a_gnl[fd].buffer, BUFFER_SIZE);
+		if (a_gnl[fd].nb_read < 0)
 		{
 			new_gnl_bonus(a_gnl, fd, 1);
 			return (1);
 		}
 	}
-	if (a_gnl[fd].bytes_read == 0)
+	if (a_gnl[fd].nb_read == 0)
 	{
-		if (!a_gnl[fd].read0_1st && a_gnl[fd].retval != NULL)
-			a_gnl[fd].read0_1st = 1;
+		if (!a_gnl[fd].read0 && a_gnl[fd].retval != NULL)
+			a_gnl[fd].read0 = 1;
 		else if (a_gnl[fd].retval == NULL)
 			return (1);
 	}
-	if (a_gnl[fd].bytes_read != 0)
+	if (a_gnl[fd].nb_read != 0)
 		a_gnl[fd].retval = ft_split2_bonus(a_gnl, '\n', fd);
 	if (a_gnl[fd].retval == NULL)
 		return (1);
@@ -120,7 +118,8 @@ unsigned char	*ft_memjoin_bonus(unsigned char *s2,
 	return (retval);
 }
 
-unsigned char	*ft_new_malloc(t_gnl *elem, ssize_t *iter, ssize_t ss2, int last)
+unsigned char	*ft_new_malloc(t_gnl *elem, ssize_t *iter,
+	ssize_t ss2, int last)
 {
 	unsigned char	*retval;
 
@@ -130,7 +129,7 @@ unsigned char	*ft_new_malloc(t_gnl *elem, ssize_t *iter, ssize_t ss2, int last)
 		retval = elem->retval;
 	}
 	else
-	{	
+	{
 		if (!elem->memsize)
 			elem->memsize = ss2 + (last < 0);
 		else if (ss2 < BUFFER_SIZE || BUFFER_SIZE == 1 || last)
@@ -139,7 +138,7 @@ unsigned char	*ft_new_malloc(t_gnl *elem, ssize_t *iter, ssize_t ss2, int last)
 			elem->memsize = (elem->retsize + ss2) * 2;
 		retval = malloc((elem->memsize) * sizeof(unsigned char));
 		if (retval == NULL)
-				return (NULL);
+			return (NULL);
 	}
 	return (retval);
 }

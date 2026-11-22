@@ -6,17 +6,14 @@
 /*   By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 09:43:47 by marisous          #+#    #+#             */
-/*   Updated: 2026/11/22 13:25:08 by marisous         ###   ########.fr       */
+/*   Updated: 2026/11/22 17:59:43 by marisous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_BONUS_H
 # define GET_NEXT_LINE_BONUS_H
 
-/* # include <stdlib.h> */
 # include <unistd.h>
-# include <stddef.h>
-# include <stdio.h>
 # include <stdlib.h>
 /* #define MAXMEMORY 999916 */
 
@@ -28,6 +25,10 @@
 # elif BUFFER_SIZE <= 0
 #  undef BUFFER_SIZE
 #  define BUFFER_SIZE 1
+# endif
+
+# ifndef FOPEN_MAX_MJ
+#  define FOPEN_MAX_MJ 1001
 # endif
 
 # ifndef BINNARY_FILE
@@ -43,16 +44,17 @@ typedef struct s_gnl
 	ssize_t			memsize;
 	ssize_t			leftover;
 	ssize_t			buff0;
-	ssize_t			bytes_read;
+	ssize_t			nb_read;
 	int				init;
-	int				read0_1st;
+	int				read0;
 }			t_gnl;
 
 unsigned char	*ft_split2_bonus(t_gnl *elem, const unsigned char c, int fd);
 char			*get_next_line(int fd);
 int				preliminary_and_split2_bonus(t_gnl *elem, int fd);
 void			new_gnl_bonus(t_gnl *a_gnl, int fd, int opt);
-unsigned char	*ft_new_malloc(t_gnl *elem, ssize_t *iter, ssize_t ss2, int last);
+unsigned char	*ft_new_malloc(t_gnl *elem, ssize_t *iter,
+					ssize_t ss2, int last);
 unsigned char	*ft_memjoin_bonus(unsigned char *s2,
 					ssize_t ss1, ssize_t ss2, t_gnl *elem);
 
