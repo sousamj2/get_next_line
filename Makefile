@@ -6,7 +6,7 @@
 #    By: marisous <marisous@student.42lisb...>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/11/05 11:20:42 by marisous          #+#    #+#              #
-#    Updated: 2026/11/19 09:54:53 by marisous         ###   ########.fr        #
+#    Updated: 2026/11/24 16:42:59 by marisous         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 VALG	= 1
@@ -24,9 +24,11 @@ PREXEC	= ulimit -v 131072; timeout 5s
 
 OBJ_FOLDER	= objs
 
+#PREXEC	= ulimit -v 262144; timeout 5s
+
 ifeq ($(VALG),1)
 	EXEC	= valgrind --leak-check=full --show-leak-kinds=all --error-exitcode=1 --track-origins=yes -s
-	PREXEC	= ulimit -v 262144; timeout 5s
+	PREXEC	= timeout 5s
 else
 	ifeq ($(ASAN),1)
 		COMP	= -fsanitize=address,leak
